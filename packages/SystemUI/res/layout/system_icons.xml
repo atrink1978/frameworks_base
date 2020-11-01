@@ -20,16 +20,16 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical">
 
+    <include layout="@layout/signal_cluster_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/signal_cluster_margin_start"/>
+
     <com.android.keyguard.AlphaOptimizedLinearLayout android:id="@+id/statusIcons"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="horizontal"/>
-
-    <include layout="@layout/signal_cluster_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/signal_cluster_margin_start"/>
 
     <com.android.systemui.BatteryMeterView android:id="@+id/battery"
         android:layout_height="match_parent"

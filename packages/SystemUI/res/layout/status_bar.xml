@@ -48,10 +48,16 @@
         android:paddingEnd="8dp"
         android:orientation="horizontal"
         >
-				   <com.android.systemui.BatteryMeterView android:id="@+id/battery"
-        				android:layout_height="match_parent"
-        				android:layout_width="wrap_content"
-        			/>
+            <com.android.systemui.statusbar.policy.Clock
+                android:id="@+id/clock"
+                android:textAppearance="@style/TextAppearance.StatusBar.Clock"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:singleLine="true"
+                android:paddingStart="@dimen/status_bar_clock_starting_padding"
+                android:paddingEnd="@dimen/status_bar_clock_end_padding"
+                android:gravity="center_vertical|start"
+                />
 
 
         <!-- The alpha of this area is controlled from both PhoneStatusBarTransitions and
@@ -69,16 +75,6 @@
             android:orientation="horizontal"
             >
             <include layout="@layout/system_icons" />
-            <com.android.systemui.statusbar.policy.Clock
-                android:id="@+id/clock"
-                android:textAppearance="@style/TextAppearance.StatusBar.Clock"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:singleLine="true"
-                android:paddingStart="@dimen/status_bar_clock_starting_padding"
-                android:paddingEnd="@dimen/status_bar_clock_end_padding"
-                android:gravity="center_vertical|start"
-                />
         </com.android.keyguard.AlphaOptimizedLinearLayout>
     </LinearLayout>
 
