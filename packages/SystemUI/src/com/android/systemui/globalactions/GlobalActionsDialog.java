@@ -101,7 +101,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
 
     private static final String TAG = "GlobalActionsDialog";
 
-    private static final boolean SHOW_SILENT_TOGGLE = true;
+    private static final boolean SHOW_SILENT_TOGGLE = false;
 
     /* Valid settings for global actions keys.
      * see config.xml config_globalActionList */
@@ -237,8 +237,8 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
             mSilentModeAction = new SilentModeTriStateAction(mContext, mAudioManager, mHandler);
         }
         mAirplaneModeOn = new ToggleAction(
-                R.drawable.ic_lock_airplane_mode,
-                R.drawable.ic_lock_airplane_mode_off,
+                com.android.systemui.R.drawable.ic_lock_airplane_mode_enabled,
+                com.android.systemui.R.drawable.ic_lock_airplane_mode_disabled,
                 R.string.global_actions_toggle_airplane_mode,
                 R.string.global_actions_airplane_mode_on_status,
                 R.string.global_actions_airplane_mode_off_status) {
@@ -862,7 +862,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
             }
             if (mIcon != null) {
                 icon.setImageDrawable(mIcon);
-                icon.setScaleType(ScaleType.CENTER_CROP);
+                icon.setScaleType(ScaleType.CENTER);
             } else if (mIconResId != 0) {
                 icon.setImageDrawable(context.getDrawable(mIconResId));
             }
@@ -949,26 +949,21 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
 
             ImageView icon = (ImageView) v.findViewById(R.id.icon);
             TextView messageView = (TextView) v.findViewById(R.id.message);
-            TextView statusView = (TextView) v.findViewById(R.id.status);
             final boolean enabled = isEnabled();
+            boolean on = ((mState == State.On) || (mState == State.TurningOn));
 
             if (messageView != null) {
-                messageView.setText(mMessageResId);
+                messageView.setText(on ? mEnabledStatusMessageResId : mDisabledStatusMessageResId);
                 messageView.setEnabled(enabled);
+                messageView.setSelected(true); // necessary for marquee to work
             }
 
-            boolean on = ((mState == State.On) || (mState == State.TurningOn));
             if (icon != null) {
                 icon.setImageDrawable(context.getDrawable(
                         (on ? mEnabledIconResId : mDisabledIconResid)));
                 icon.setEnabled(enabled);
             }
 
-            if (statusView != null) {
-                statusView.setText(on ? mEnabledStatusMessageResId : mDisabledStatusMessageResId);
-                statusView.setVisibility(View.VISIBLE);
-                statusView.setEnabled(enabled);
-            }
             v.setEnabled(enabled);
 
             return v;
@@ -1177,15 +1172,18 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
         }
     };
 
+    private ToggleAction.State getUpdatedAirplaneToggleState() {
+        return Settings.Global.getInt(mContext.getContentResolver(),
+                Settings.Global.AIRPLANE_MODE_ON, 0) == 1
+                    ? ToggleAction.State.On
+                    : ToggleAction.State.Off;
+    }
+
     private void onAirplaneModeChanged() {
         // Let the service state callbacks handle the state.
         if (mHasTelephony) return;
 
-        boolean airplaneModeOn = Settings.Global.getInt(
-                mContext.getContentResolver(),
-                Settings.Global.AIRPLANE_MODE_ON,
-                0) == 1;
-        mAirplaneState = airplaneModeOn ? ToggleAction.State.On : ToggleAction.State.Off;
+        mAirplaneState = getUpdatedAirplaneToggleState();
         mAirplaneModeOn.updateState(mAirplaneState);
     }
 
