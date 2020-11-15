@@ -2057,4 +2057,7 @@
     <string name="touch_filtered_warning">Because an app is obscuring a permission request, Settings
         can’t verify your response.</string>
 
+    <!-- Label for item that screenshots in power menu options dialog -->
+    <string name="global_action_screenshot">Screenshot</string>
+
 </resources>
