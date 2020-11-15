@@ -303,7 +303,9 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
             } else if (GLOBAL_ACTION_KEY_SCREENSHOT.equals(actionKey)) {
                 mItems.add(new ScreenshotAction());
             } else if (GLOBAL_ACTION_KEY_AIRPLANE.equals(actionKey)) {
-                mItems.add(mAirplaneModeOn);
+                if (mShowSilentToggle) {
+                    mItems.add(mAirplaneModeOn);
+                }
             } else if (GLOBAL_ACTION_KEY_BUGREPORT.equals(actionKey)) {
                 if (Settings.Global.getInt(mContext.getContentResolver(),
                         Settings.Global.BUGREPORT_IN_POWER_MENU, 0) != 0 && isCurrentUserOwner()) {
@@ -973,7 +975,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
             TextView messageView = (TextView) v.findViewById(R.id.message);
 
             TextView statusView = (TextView) v.findViewById(R.id.status);
-            final String status = getStatus();
+            final CharSequence status = getStatus();
             if (!TextUtils.isEmpty(status)) {
                 statusView.setText(status);
             } else {
@@ -1063,7 +1065,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
                 LayoutInflater inflater) {
             willCreate();
 
-            View v = inflater.inflate(R
+            View v = inflater.inflate(com.android.systemui.R
                     .layout.global_actions_item, parent, false);
 
             ImageView icon = (ImageView) v.findViewById(R.id.icon);
