@@ -140,7 +140,7 @@ public final class RotationPolicy {
                 try {
                     IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
                     if (enabled) {
-                        wm.freezeRotation(rotation);
+                        wm.freezeRotation(-1);
                     } else {
                         wm.thawRotation();
                     }
