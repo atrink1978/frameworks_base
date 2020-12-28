@@ -199,9 +199,9 @@ final class DreamController {
 
             final DreamRecord oldDream = mCurrentDream;
             mCurrentDream = null;
-            Slog.i(TAG, "Stopping dream: name=" + oldDream.mName
-                    + ", isTest=" + oldDream.mIsTest + ", canDoze=" + oldDream.mCanDoze
-                    + ", userId=" + oldDream.mUserId);
+            //Slog.i(TAG, "Stopping dream: name=" + oldDream.mName
+            //        + ", isTest=" + oldDream.mIsTest + ", canDoze=" + oldDream.mCanDoze
+            //        + ", userId=" + oldDream.mUserId);
             MetricsLogger.hidden(mContext,
                     oldDream.mCanDoze ? MetricsEvent.DOZING : MetricsEvent.DREAMING);
             MetricsLogger.histogram(mContext,

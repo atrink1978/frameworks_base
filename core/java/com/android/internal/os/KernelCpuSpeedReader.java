@@ -84,7 +84,7 @@ public class KernelCpuSpeedReader {
                 speedIndex++;
             }
         } catch (IOException e) {
-            Slog.e(TAG, "Failed to read cpu-freq: " + e.getMessage());
+//            Slog.e(TAG, "Failed to read cpu-freq: " + e.getMessage());
             Arrays.fill(mDeltaSpeedTimesMs, 0);
         } finally {
             StrictMode.setThreadPolicy(policy);
