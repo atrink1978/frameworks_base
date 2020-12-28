@@ -207,6 +207,7 @@ public class EmergencyButton extends Button {
                 }
             }
         }
+        visible = false;
         if (visible) {
             setVisibility(View.VISIBLE);
 
