@@ -638,7 +638,7 @@ public final class ActiveServices {
                         sb.append(" ");
                         sb.append(compName);
                         Slog.w(TAG, sb.toString());
-                        stopping.add(service);
+                        //stopping.add(service);
                     }
                 }
             }
@@ -647,7 +647,7 @@ public final class ActiveServices {
                     ServiceRecord service = stopping.get(i);
                     service.delayed = false;
                     services.ensureNotStartingBackgroundLocked(service);
-                    stopServiceLocked(service);
+                    //stopServiceLocked(service);
                 }
             }
         }
